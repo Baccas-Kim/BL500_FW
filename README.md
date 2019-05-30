@@ -2,6 +2,9 @@
 
 
 ![ex_screenshot](./Materials/boardfree site.PNG)
+![ex_screenshot](./BL500_FW/Materials/boardfree site.PNG)
+
+
 
 # BL500_FW
 * Develop BoardFress.inc BL-500 Board Firmware
