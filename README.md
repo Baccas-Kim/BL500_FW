@@ -5,7 +5,11 @@
      1. DI 16 Chnnel (digital input)
      2. DO 16 Chnnel (digital output)
 
-
+# 개발환경
+* IDE : Avrstudio4.18 (dependency MS Windows10)
+* Compiler : WinAVR2010
+* Hardware : BoardFree BL-500
+* Code convention : GNU
 
 # Hardware
  * from http://boardfree.kr/ ->> project탭에서 하단부 80%지점
