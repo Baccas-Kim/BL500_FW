@@ -1,4 +1,8 @@
+[ ](/Materials/boardfree site.PNG)
+
+
 ![ex_screenshot](./Materials/boardfree site.PNG)
+
 # BL500_FW
 * Develop BoardFress.inc BL-500 Board Firmware
 * 이 프로젝트는 보드프리 Link( ) BL-500 보드의 Firmware제작 프로젝트 입니다.
@@ -6,12 +10,7 @@
      1. DI 16 Chnnel (digital input)
      2. DO 16 Chnnel (digital output)
 
-# 개발환경
-* IDE : Avrstudio4.18 (dependency MS Windows10)
-* Compiler : WinAVR2010
-* Hardware : BoardFree BL-500
-* Code convention : GNU
-* Dev Language : C Language
+
 
 # Hardware
  * from http://boardfree.kr/ ->> project탭에서 하단부 80%지점
