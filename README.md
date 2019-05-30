@@ -2,7 +2,7 @@
 
 
 ![ex_screenshot](./Materials/boardfree site.PNG)
-![ex_screenshot](https://github.com/Baccas-Kim/BL500_FW/blob/master/Materials/boardfree%20site.PNG)
+![ex_screenshot](https://github.com/Baccas-Kim/BL500_FW/blob/master/Materials/BL500.PNG)
 
 
 
