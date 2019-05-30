@@ -10,6 +10,7 @@
 * Compiler : WinAVR2010
 * Hardware : BoardFree BL-500
 * Code convention : GNU
+* Dev Language : C Language
 
 # Hardware
  * from http://boardfree.kr/ ->> project탭에서 하단부 80%지점
