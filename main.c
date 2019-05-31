@@ -4,6 +4,7 @@
 //LICENSE : MIT License
 ========================================================================*/
 #define F_CPU 16000000UL  // 16 MHz, depend on user component
+#define QBUFFER 150
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h> 
@@ -18,11 +19,11 @@ void TX0_Byte(unsigned char data);
 void TX1_Byte(unsigned char data);
 //void PRINT_M(unsigned char *message);
 void print(unsigned char *message);
-
+void UI_Handler(unsigned char *qdata);
 
 int main(void)
 {
-	
+	unsigned char qdata[QBUFFER];
     USART_Init();  // baud rate : 9600
     sei();
     print(prompt);
@@ -30,22 +31,8 @@ int main(void)
 		print(str1);
 		_delay_ms(1000);
 		PORTA = ~PORTA;
-		
-        if(receive_completion){
-            receive_completion = 0;
-            switch(receive_data){
-                case '\r' : TX0_Byte('\r'); TX0_Byte('\n');
-                            print(prompt);
-                            break;
-                case '\n' : TX0_Byte('\r'); TX0_Byte('\n');
-                            print(prompt);
-                            break;
-                default   : TX0_Byte(receive_data);
-                            TX0_Byte('\r'); TX0_Byte('\n');
-                            print(prompt);
-                            break;
-            }
-        }
+		UI_Handler(qdata);
+
     }while(1);
 }
 
@@ -92,7 +79,26 @@ void print(unsigned char *message)
     }
 }
 
-
+void UI_Handler(unsigned char *qdata)
+{
+//QBUFFER
+	if(receive_completion){
+	    receive_completion = 0;
+        switch(receive_data){
+            case '\r' : TX0_Byte('\r'); TX0_Byte('\n');
+                        print(prompt);
+                        break;
+            case '\n' : TX0_Byte('\r'); TX0_Byte('\n');
+                        print(prompt);
+                        break;
+            default   : TX0_Byte(receive_data);
+                        TX0_Byte('\r'); TX0_Byte('\n');
+                        print(prompt);
+                        break;
+        }
+    }
+	return;
+}
 
 SIGNAL(SIG_UART0_RECV)
 {

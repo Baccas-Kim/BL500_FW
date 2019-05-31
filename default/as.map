@@ -1,5 +1,7 @@
 Archive member included because of file (symbol)
 
+c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
+                              qbuffer.o (__udivmodsi4)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
                               c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o (exit)
 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
@@ -26,6 +28,7 @@ Linker script and memory map
 Address of section .data set to 0x800100
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
 LOAD main.o
+LOAD qbuffer.o
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51\libc.a
 LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
@@ -120,7 +123,7 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000      0x226
+.text           0x00000000      0x4b2
  *(.vectors)
  .vectors       0x00000000       0x8c c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
                 0x00000000                __vectors
@@ -209,25 +212,36 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
                 0x000000ca                __vector_10
                 0x000000ca                __vector_16
                 0x000000ca                __vector_20
- .text          0x000000ce      0x154 main.o
+ .text          0x000000ce      0x18c main.o
                 0x00000112                print
+                0x00000148                UI_Handler
                 0x000000fa                TX0_Byte
-                0x000001f6                __vector_30
+                0x0000022e                __vector_30
                 0x000000ce                USART_Init
-                0x00000148                main
+                0x000001ac                main
                 0x00000102                TX1_Byte
-                0x000001d2                __vector_18
- .text          0x00000222        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
- .text          0x00000222        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
-                0x00000222                . = ALIGN (0x2)
+                0x0000020a                __vector_18
+ .text          0x0000025a      0x210 qbuffer.o
+                0x0000025c                qbufferCreate
+                0x00000456                qbufferFlush
+                0x0000025a                qbufferInit
+                0x00000416                qbufferAvailable
+                0x00000352                qbufferRead
+                0x0000028e                qbufferWrite
+ .text          0x0000046a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
+ .text          0x0000046a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .text          0x0000046a        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+                0x0000046a                . = ALIGN (0x2)
  *(.text.*)
- .text.libgcc   0x00000222        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
- .text.libgcc   0x00000222        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
-                0x00000222                . = ALIGN (0x2)
+ .text.libgcc   0x0000046a       0x44 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
+                0x0000046a                __udivmodsi4
+ .text.libgcc   0x000004ae        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .text.libgcc   0x000004ae        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
+                0x000004ae                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000222        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
-                0x00000222                exit
-                0x00000222                _exit
+ .fini9         0x000004ae        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+                0x000004ae                exit
+                0x000004ae                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -246,17 +260,19 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000222        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
+ .fini0         0x000004ae        0x4 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
  *(.fini0)
-                0x00000226                _etext = .
+                0x000004b2                _etext = .
 
-.data           0x00800100       0x1e load address 0x00000226
+.data           0x00800100       0x1e load address 0x000004b2
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x00800100        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
  .data          0x00800100       0x1d main.o
                 0x0080010c                str1
                 0x00800100                prompt
+ .data          0x0080011d        0x0 qbuffer.o
+ .data          0x0080011d        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
  .data          0x0080011d        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
  .data          0x0080011d        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
  *(.data*)
@@ -274,6 +290,8 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  .bss           0x0080011e        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/../../../../avr/lib/avr51/crtm128.o
  .bss           0x0080011e        0x1 main.o
                 0x0080011e                receive_completion
+ .bss           0x0080011f        0x0 qbuffer.o
+ .bss           0x0080011f        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_udivmodsi4.o)
  .bss           0x0080011f        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_exit.o)
  .bss           0x0080011f        0x0 c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a(_clear_bss.o)
  *(.bss*)
@@ -281,8 +299,8 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
  COMMON         0x0080011f        0x1 main.o
                 0x0080011f                receive_data
                 0x00800120                PROVIDE (__bss_end, .)
-                0x00000226                __data_load_start = LOADADDR (.data)
-                0x00000244                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000004b2                __data_load_start = LOADADDR (.data)
+                0x000004d0                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800120        0x0
                 0x00800120                PROVIDE (__noinit_start, .)
@@ -340,47 +358,58 @@ LOAD c:/winavr-20100110/bin/../lib/gcc/avr/4.3.3/avr51\libgcc.a
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0x20
+.debug_aranges  0x00000000       0x40
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x20 main.o
+ .debug_aranges
+                0x00000020       0x20 qbuffer.o
 
 .debug_pubnames
-                0x00000000       0xaa
+                0x00000000      0x134
  *(.debug_pubnames)
  .debug_pubnames
-                0x00000000       0xaa main.o
+                0x00000000       0xb9 main.o
+ .debug_pubnames
+                0x000000b9       0x7b qbuffer.o
 
-.debug_info     0x00000000      0x347
+.debug_info     0x00000000      0x665
  *(.debug_info)
- .debug_info    0x00000000      0x347 main.o
+ .debug_info    0x00000000      0x391 main.o
+ .debug_info    0x00000391      0x2d4 qbuffer.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev   0x00000000      0x185
+.debug_abbrev   0x00000000      0x27c
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x185 main.o
+ .debug_abbrev  0x00000185       0xf7 qbuffer.o
 
-.debug_line     0x00000000      0x316
+.debug_line     0x00000000      0x4f9
  *(.debug_line)
- .debug_line    0x00000000      0x316 main.o
+ .debug_line    0x00000000      0x335 main.o
+ .debug_line    0x00000335      0x1c4 qbuffer.o
 
-.debug_frame    0x00000000       0x80
+.debug_frame    0x00000000      0x100
  *(.debug_frame)
- .debug_frame   0x00000000       0x80 main.o
+ .debug_frame   0x00000000       0x90 main.o
+ .debug_frame   0x00000090       0x70 qbuffer.o
 
-.debug_str      0x00000000      0x11e
+.debug_str      0x00000000      0x1e7
  *(.debug_str)
- .debug_str     0x00000000      0x11e main.o
-                                0x157 (size before relaxing)
+ .debug_str     0x00000000      0x12f main.o
+                                0x168 (size before relaxing)
+ .debug_str     0x0000012f       0xb8 qbuffer.o
+                                0x154 (size before relaxing)
 
-.debug_loc      0x00000000       0x86
+.debug_loc      0x00000000      0x26c
  *(.debug_loc)
- .debug_loc     0x00000000       0x86 main.o
+ .debug_loc     0x00000000       0x8e main.o
+ .debug_loc     0x0000008e      0x1de qbuffer.o
 
 .debug_macinfo
  *(.debug_macinfo)
 OUTPUT(as.elf elf32-avr)
 LOAD linker stubs
 
-.debug_ranges   0x00000000       0x78
- .debug_ranges  0x00000000       0x78 main.o
+.debug_ranges   0x00000000       0x48
+ .debug_ranges  0x00000000       0x48 main.o

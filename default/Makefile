@@ -36,8 +36,11 @@ HEX_EEPROM_FLAGS += --set-section-flags=.eeprom="alloc,load"
 HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 
 
+## Include Directories
+INCLUDES = -I"C:\workspace\BL500_FW\Src" 
+
 ## Objects that must be built in order to link
-OBJECTS = main.o 
+OBJECTS = main.o qbuffer.o 
 
 ## Objects explicitly added by the user
 LINKONLYOBJECTS = 
@@ -47,6 +50,9 @@ all: $(TARGET) as.hex as.eep as.lss size
 
 ## Compile
 main.o: ../main.c
+	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
+
+qbuffer.o: ../Src/qbuffer.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c  $<
 
 ##Link
