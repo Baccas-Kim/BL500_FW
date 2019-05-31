@@ -14,8 +14,10 @@ volatile unsigned char receive_data, receive_completion=0;
 unsigned char prompt[]="ATmaga128> ";
 unsigned char str1[] = "Hello AVR World!";
 
-void USART_Init(void);
-void TX0_Byte(unsigned char data);
+void UART0_Init(void);
+void UART1_Init(void);
+void UART0_Read_Byte(unsigned char data)
+void UART1_Read_Byte(unsigned char data)
 void TX1_Byte(unsigned char data);
 //void PRINT_M(unsigned char *message);
 void print(unsigned char *message);
@@ -23,10 +25,12 @@ void UI_Handler(unsigned char *qdata);
 
 int main(void)
 {
+
 	unsigned char qdata[QBUFFER];
     USART_Init();  // baud rate : 9600
     sei();
     print(prompt);
+    
     do{
 		print(str1);
 		_delay_ms(1000);
@@ -34,31 +38,34 @@ int main(void)
 		UI_Handler(qdata);
 
     }while(1);
+
 }
 
-void USART_Init(void)
+void UART0_Init(void)
 {
     UBRR0H = 0;//baud = 9600!!
     UBRR0L = 207;//baud = 9600!!
     UCSR0A = 0x02;                  //asynchronous normal mode
     UCSR0B = (1<<RXCIE0)|(1<<RXEN0)|(1<<TXEN0); //interrupt, Rx/Tx enable
     UCSR0C = (1<<UCSZ01)|(1<<UCSZ00);//no parity, 1 stop, 8 data
-	
+}
+
+void UART1_Init(void)
+{
 	UBRR1H = 0;//baud = 9600!!
     UBRR1L = 207;//baud = 9600!!
     UCSR1A = 0x02;                  //asynchronous normal mode
     UCSR1B = (1<<RXCIE1)|(1<<RXEN1)|(1<<TXEN1); //interrupt, Rx/Tx enable
     UCSR1C = (1<<UCSZ11)|(1<<UCSZ10);//no parity, 1 stop, 8 data
-
 }
 
-void TX0_Byte(unsigned char data)
+void UART0_Read_Byte(unsigned char data)
 {
     while(!(UCSR0A & (1<<UDRE0)));  //wait for empty transmit buffer
     UDR0 = data;                    //put data into buffer, send the data
 }
 
-void TX1_Byte(unsigned char data)
+void UART1_Read_Byte(unsigned char data)
 {
     while(!(UCSR1A & (1<<UDRE1)));  //wait for empty transmit buffer
     UDR1 = data;                    //put data into buffer, send the data
