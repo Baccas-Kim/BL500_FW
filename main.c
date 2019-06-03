@@ -9,35 +9,34 @@
 #include <avr/interrupt.h>
 #include <util/delay.h> 
 
-volatile unsigned char receive_data, receive_completion=0;
-
-unsigned char prompt[]="ATmaga128> ";
-unsigned char str1[] = "Hello AVR World!";
-
+void Hw_Init(void);
 void UART0_Init(void);
 void UART1_Init(void);
 void UART0_Read_Byte(unsigned char data);
 void UART1_Read_Byte(unsigned char data);
 void TX1_Byte(unsigned char data);
-//void PRINT_M(unsigned char *message);
+void Timer_Init(void);
 void print(unsigned char *message);
 void UI_Handler(unsigned char *qdata);
 
 
-static unsigned char rbuf_in = 0;
-static unsigned char rbuf_out = 0;
-unsigned char rbuf[2000] = {0};
+//regeistor involved variables : located in .data Section
+volatile unsigned char Tii_count = 0;
+volatile unsigned char ss = 0, ms = 0;
+volatile unsigned char rbuf_in = 0, rbuf_out = 0;
+volatile unsigned char receive_data = 0, receive_completion = 0;
+volatile unsigned char rbuf[2000] = {0};
+unsigned char prompt[]="ATmaga128> ";
+unsigned char str1[] = "Hello AVR World!";
 
 
 
 int main(void)
 {
-
-	unsigned char qdata[QBUFFER];
-    UART1_Init();  // baud rate : 9600
+  unsigned char qdata[QBUFFER];
+  UART1_Init();  // baud rate : 9600
 	UART0_Init();  // baud rate : 9600
-    sei();
-    print(prompt);
+  print(prompt);
     
     do{
 		print(str1);
@@ -49,6 +48,10 @@ int main(void)
 
 }
 
+void Hw_Init(void)
+{
+  sei();        //enable all interrupts 
+}
 
 void UART0_Init(void)
 {
@@ -135,3 +138,101 @@ SIGNAL(SIG_UART1_RECV)
 
 
 
+//=================================================================================timer0 
+SIGNAL(SIG_OVERFLOW0)//timer0 Overflow interrupt 
+{ 
+  interrupt_count--; ms++; 
+    if(!interrupt_count){//10ms * 100 = 1000ms delay = 1s 
+        interrupt_count = 100; ss++; ms=0; 
+    } 
+  TCNT0 = 0x70; 
+} 
+  
+  
+//=================================================================================timer1 
+SIGNAL(SIG_OVERFLOW2)//timer1 Overflow interrupt 
+{ 
+  stw_count--; 
+    if(!stw_count){//10ms * 100 = 1000ms delay = 1s 
+        stw_count = 100; sws++; 
+    } 
+  TCNT2 = 0x70; 
+} 
+  
+  
+//================================================================================= 
+SIGNAL(SIG_INTERRUPT0)//Exint0 Overflow interrupt 
+{//스위치를 누를때마다 부저가 켜집니다. 
+ mode++; buzzer_on;_delay_ms(2); if(mode>7){mode=0;}  
+} 
+  
+//================================================================================= 
+SIGNAL(SIG_INTERRUPT1)//Exint1 외부인터럽트1 스위치는 모드별로 동작이 바뀌므로 케이스문을 사용합니다. 
+{ 
+  LED_on; 
+  switch(mode){ 
+  case 0: mi++;buzzer_on; break; 
+  case 1: mi++;buzzer_on; break; 
+  case 2: dd++;buzzer_on; break; 
+  case 3: mo++;buzzer_on; break; 
+  case 4: _delay_ms(2); break; 
+  case 5: _delay_ms(2); break; 
+  case 6: _delay_ms(2); break; 
+  case 7: _delay_ms(2); break; 
+  }
+}
+
+
+void Timer_Init(void);(void)//1초를 만들기 위해서 타이머카운트 인터럽트를 사용합니다. 
+{ 
+  TCCR0 = 0x07; 
+  TCNT0 = 0x70; //{(0xff-0x70)+1} * 126 * (1/16Mhz) = 10ms 
+  TCCR2 = 0x07; 
+  TCNT2 = 0x70; //{(0xff-0x70)+1} * 126 * (1/16Mhz) = 10ms 
+  TIMSK = 0x41; 
+  TIFR = 0x40; 
+} 
+
+//======================================
+//Timer0 
+//======================================
+SIGNAL(SIG_OVERFLOW0)//timer0 Overflow interrupt 
+{ 
+  Tii_count--; ms++; 
+  if(!Tii_count){//10ms * 100 = 1000ms delay = 1s 
+    Tii_count = 100; ss++; ms=0; 
+  } 
+  TCNT0 = 0x70; 
+} 
+
+
+//======================================
+//Timer1 
+//======================================
+SIGNAL(SIG_OVERFLOW2)//timer1 Overflow interrupt 
+{ 
+  stw_count--; 
+    if(!stw_count){//10ms * 100 = 1000ms delay = 1s 
+      stw_count = 100; sws++; 
+    } 
+  TCNT2 = 0x70; 
+} 
+
+  
+
+//======================================
+//Exint1
+//======================================  
+SIGNAL(SIG_INTERRUPT1) 
+{ 
+  LED_on; 
+  switch(mode){ 
+  
+  case 0: 
+  do{
+
+  }while(0);
+  break; 
+   
+  }
+}
