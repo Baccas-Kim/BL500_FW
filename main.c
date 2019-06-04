@@ -8,6 +8,9 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h> 
+//#include @@@ do{}while(0);
+
+
 
 void Hw_Init(void);
 void UART0_Init(void);
@@ -35,14 +38,15 @@ int main(void)
 {
   unsigned char qdata[QBUFFER];
   UART1_Init();  // baud rate : 9600
-	UART0_Init();  // baud rate : 9600
+  UART0_Init();  // baud rate : 9600
+  Hw_Init();
+  Timer_Init();
   print(prompt);
     
     do{
-		print(str1);
 		_delay_ms(1000);
-		PORTA = ~PORTA;
-		UI_Handler(qdata);
+		//PORTA = ~PORTA;
+		//UI_Handler(qdata);
 
     }while(1);
 
@@ -138,52 +142,9 @@ SIGNAL(SIG_UART1_RECV)
 
 
 
-//=================================================================================timer0 
-SIGNAL(SIG_OVERFLOW0)//timer0 Overflow interrupt 
-{ 
-  interrupt_count--; ms++; 
-    if(!interrupt_count){//10ms * 100 = 1000ms delay = 1s 
-        interrupt_count = 100; ss++; ms=0; 
-    } 
-  TCNT0 = 0x70; 
-} 
-  
-  
-//=================================================================================timer1 
-SIGNAL(SIG_OVERFLOW2)//timer1 Overflow interrupt 
-{ 
-  stw_count--; 
-    if(!stw_count){//10ms * 100 = 1000ms delay = 1s 
-        stw_count = 100; sws++; 
-    } 
-  TCNT2 = 0x70; 
-} 
-  
-  
-//================================================================================= 
-SIGNAL(SIG_INTERRUPT0)//Exint0 Overflow interrupt 
-{//스위치를 누를때마다 부저가 켜집니다. 
- mode++; buzzer_on;_delay_ms(2); if(mode>7){mode=0;}  
-} 
-  
-//================================================================================= 
-SIGNAL(SIG_INTERRUPT1)//Exint1 외부인터럽트1 스위치는 모드별로 동작이 바뀌므로 케이스문을 사용합니다. 
-{ 
-  LED_on; 
-  switch(mode){ 
-  case 0: mi++;buzzer_on; break; 
-  case 1: mi++;buzzer_on; break; 
-  case 2: dd++;buzzer_on; break; 
-  case 3: mo++;buzzer_on; break; 
-  case 4: _delay_ms(2); break; 
-  case 5: _delay_ms(2); break; 
-  case 6: _delay_ms(2); break; 
-  case 7: _delay_ms(2); break; 
-  }
-}
 
 
-void Timer_Init(void);(void)//1초를 만들기 위해서 타이머카운트 인터럽트를 사용합니다. 
+void Timer_Init(void)//1초를 만들기 위해서 타이머카운트 인터럽트를 사용합니다. 
 { 
   TCCR0 = 0x07; 
   TCNT0 = 0x70; //{(0xff-0x70)+1} * 126 * (1/16Mhz) = 10ms 
@@ -201,6 +162,9 @@ SIGNAL(SIG_OVERFLOW0)//timer0 Overflow interrupt
   Tii_count--; ms++; 
   if(!Tii_count){//10ms * 100 = 1000ms delay = 1s 
     Tii_count = 100; ss++; ms=0; 
+	PORTB = ~PORTB;
+
+    print(str1);
   } 
   TCNT0 = 0x70; 
 } 
@@ -211,28 +175,24 @@ SIGNAL(SIG_OVERFLOW0)//timer0 Overflow interrupt
 //======================================
 SIGNAL(SIG_OVERFLOW2)//timer1 Overflow interrupt 
 { 
-  stw_count--; 
-    if(!stw_count){//10ms * 100 = 1000ms delay = 1s 
-      stw_count = 100; sws++; 
-    } 
+  
   TCNT2 = 0x70; 
 } 
 
   
+//====================================== 
+//Exint0
+//====================================== 
+SIGNAL(SIG_INTERRUPT0)//Exint0 Overflow interrupt 
+{
+  //@@@
+} 
+
 
 //======================================
 //Exint1
 //======================================  
 SIGNAL(SIG_INTERRUPT1) 
 { 
-  LED_on; 
-  switch(mode){ 
-  
-  case 0: 
-  do{
-
-  }while(0);
-  break; 
-   
-  }
+  //@@@
 }
