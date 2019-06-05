@@ -30,13 +30,14 @@ volatile unsigned char rbuf_in = 0, rbuf_out = 0;
 volatile unsigned char receive_data = 0, receive_completion = 0;
 volatile unsigned char rbuf[2000] = {0};
 unsigned char prompt[]="ATmaga128> ";
-unsigned char str1[] = "Hello AVR World!";
+unsigned char str1[] = "Hello AVR World!\r\n";
+unsigned char str2[] = "\r\n";
 
 
 
 int main(void)
 {
-  unsigned char qdata[QBUFFER];
+  //unsigned char qdata[QBUFFER];
   UART1_Init();  // baud rate : 9600
   UART0_Init();  // baud rate : 9600
   Hw_Init();
@@ -44,8 +45,8 @@ int main(void)
   print(prompt);
     
     do{
-		_delay_ms(1000);
-		//PORTA = ~PORTA;
+		_delay_ms(100);
+		PORTA = ~PORTA;
 		//UI_Handler(qdata);
 
     }while(1);
@@ -130,9 +131,8 @@ SIGNAL(SIG_UART0_RECV)
 
 SIGNAL(SIG_UART1_RECV)
 {
-  unsigned char ret = 0;
+  //unsigned char ret = 0;
   //ret = rbuf[rx_out];
-
 
   receive_data = UDR1;
   PORTA = ~PORTA;
@@ -159,12 +159,17 @@ void Timer_Init(void)//1초를 만들기 위해서 타이머카운트 인터럽�
 //======================================
 SIGNAL(SIG_OVERFLOW0)//timer0 Overflow interrupt 
 { 
+  unsigned char ret = 0;
+  unsigned char ptr;
   Tii_count--; ms++; 
   if(!Tii_count){//10ms * 100 = 1000ms delay = 1s 
     Tii_count = 100; ss++; ms=0; 
 	PORTB = ~PORTB;
-
     print(str1);
+    ret =(unsigned char)PORTC;
+    ptr = &ret;
+	UART1_Read_Byte(ptr);
+	print(str2);
   } 
   TCNT0 = 0x70; 
 } 

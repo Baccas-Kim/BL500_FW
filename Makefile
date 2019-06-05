@@ -5,7 +5,7 @@
 ## General Flags
 PROJECT = as
 MCU = atmega128
-TARGET = out
+TARGET = OUT
 CC = avr-gcc
 
 CPP = avr-g++
@@ -25,7 +25,7 @@ ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
 LDFLAGS = $(COMMON)
-LDFLAGS +=  -Wl,-Map=out.map
+LDFLAGS +=  -Wl,-Map=OUT.map
 
 
 ## Intel Hex file production flags
@@ -46,7 +46,7 @@ OBJECTS = main.o qbuffer.o
 LINKONLYOBJECTS = 
 
 ## Build
-all: $(TARGET) out.hex out.eep out.lss size
+all: $(TARGET) OUT.hex OUT.eep OUT.lss size
 
 ## Compile
 main.o: ../main.c
@@ -75,7 +75,7 @@ size: ${TARGET}
 ## Clean target
 .PHONY: clean
 clean:
-	-rm -rf $(OBJECTS) out dep/* out.hex out.eep out.lss out.map
+	-rm -rf $(OBJECTS) OUT dep/* OUT.hex OUT.eep OUT.lss OUT.map
 
 
 ## Other dependencies
