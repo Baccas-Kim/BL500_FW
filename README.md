@@ -48,6 +48,14 @@
 소스코드
 유저 어플리케니션
 
+## 제조용 데이터 
+ - [BOM List]()
+ - [Guber Data]()
+ - [Firmware]()
+ - [PC Software]()
+ - [Windows Device Drivers]()
+ - [Linux Device Drivers]()
+
 
 # 4. 마치며
  ##  boardfree 관계자분들 감사합니다!
