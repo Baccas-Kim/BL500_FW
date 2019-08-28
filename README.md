@@ -44,7 +44,17 @@
  진행 중...
  ====================================
 
+데모 유투브 동영상
+소스코드
+유저 어플리케니션
 
+## 제조용 데이터 
+ - [BOM List]()
+ - [Guber Data]()
+ - [Firmware]()
+ - [PC Software]()
+ - [Windows Device Drivers]()
+ - [Linux Device Drivers]()
 
 
 # 4. 마치며
