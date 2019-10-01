@@ -1,9 +1,9 @@
 # BL500 프로젝트
 
-## 1. 프로젝트 개요 - BL500 펌웨어 및 SW
- * Develop BoardFress.inc BL-500 Board Firmware
- * 이 프로젝트는 보드프리 Link( ) BL-500 보드의 Firmware제작 프로젝트 입니다.
- ![ex_screenshot](https://github.com/Baccas-Kim/BL500_FW/blob/master/Materials/BL500.PNG)
+ ## 1. 프로젝트 개요 - BL500 펌웨어 및 SW
+  * Develop BoardFress.inc BL-500 Board Firmware
+  * 이 프로젝트는 보드프리 Link( ) BL-500 보드의 Firmware제작 프로젝트 입니다.
+   ![ex_screenshot](https://github.com/Baccas-Kim/BL500_FW/blob/master/Materials/BL500.PNG)
 
  ## 이 프로젝트에서의 폄웨어 구현기능 목표는 다음과 같습니다.
      1. DI 16 Chnnel (digital input)
@@ -12,11 +12,11 @@
      4. DI 를 입력받아 UART통신으로 PC출력
      5. Watchdog
      6. Error Handling
- * PC에서 
- * MCU 통신드라이버는 DLL로 구성해야 하는지 고민 중
+  * PC에서 
+  * MCU 통신드라이버는 DLL로 구성해야 하는지 고민 중
 
-# 2. Hardware 구성
- * from http://boardfree.kr/ ->> project탭에서 하단부 80%지점
+ ## 2. Hardware 구성
+  * from http://boardfree.kr/ ->> project탭에서 하단부 80%지점
  ```
  품명 : RS-232C I/O Board    BL-500
  가격 : 무료 입니다.
@@ -39,7 +39,7 @@
  ```
 코딩즁
 
-# 3. Software (code)
+ ## 3. Software (code)
  ====================================
  진행 중...
  ====================================
