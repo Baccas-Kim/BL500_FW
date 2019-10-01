@@ -1,10 +1,10 @@
-![ex_screenshot](https://github.com/Baccas-Kim/BL500_FW/blob/master/Materials/BL500.PNG)
+# BL500 프로젝트
 
-
-
-# 1. BL500 펌웨어 제작 프로젝트 개요
+## 1. 프로젝트 개요 - BL500 펌웨어 및 SW
  * Develop BoardFress.inc BL-500 Board Firmware
  * 이 프로젝트는 보드프리 Link( ) BL-500 보드의 Firmware제작 프로젝트 입니다.
+ ![ex_screenshot](https://github.com/Baccas-Kim/BL500_FW/blob/master/Materials/BL500.PNG)
+
  ## 이 프로젝트에서의 폄웨어 구현기능 목표는 다음과 같습니다.
      1. DI 16 Chnnel (digital input)
      2. DO 16 Chnnel (digital output)
